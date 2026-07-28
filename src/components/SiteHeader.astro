@@ -1,0 +1,169 @@
+---
+const navGroups = [
+  {
+    label: 'Services',
+    href: '#services',
+    items: ['Physiotherapy', 'Exercise Physiology', "Women's Health", 'Hydrotherapy', 'Clinical Pilates', 'Nutrition & Dietetics', 'NDIS', 'Home Visit Service'],
+  },
+  {
+    label: 'Exercise Classes',
+    href: '#',
+    items: ['Clinical Pilates Classes', 'Hydrotherapy Classes', 'View All Classes'],
+  },
+  {
+    label: 'Team',
+    href: '#',
+    items: ['Shailer Park Team', 'Birkdale Team', 'Bracken Ridge Team'],
+  },
+  { label: 'Blog', href: '#', items: null },
+  {
+    label: 'About',
+    href: '#',
+    items: ['Our Story', 'Meet Johnson Kwan', 'Careers'],
+  },
+  {
+    label: 'Locations',
+    href: '#locations',
+    items: ['Shailer Park', 'Birkdale', 'Bracken Ridge'],
+  },
+  { label: 'Contact', href: '#', items: null },
+];
+---
+
+<div class="announcement-bar">
+  Free Phone Assessment &amp; Treatment Plan! — <a href="#book">Click Here</a>
+</div>
+
+<div class="site-header-wrap" id="siteHeaderWrap">
+  <header class="site-header">
+    <a href="#" class="site-header__logo">
+      <img src="/images/logo-colour.png" alt="Essential Health Physio" />
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="#" class="is-active">Home</a></li>
+        {navGroups.map((group) => (
+          <li>
+            <a href={group.href} aria-haspopup={group.items ? 'true' : undefined}>
+              {group.label}
+              {group.items && (
+                <svg class="caret" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              )}
+            </a>
+            {group.items && (
+              <ul class="dropdown">
+                {group.items.map((item) => (
+                  <li><a href={group.label === 'Locations' ? '#locations' : '#'}>{item}</a></li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <a href="tel:0731320898" class="site-header__phone"><i class="fas fa-phone-alt"></i> (07) 3132 0898</a>
+      <a href="#book" class="btn btn--primary">Book Now</a>
+    </div>
+
+    <button class="site-header__toggle" id="mobileMenuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileDrawer">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+</div>
+
+<div class="mobile-backdrop" id="mobileBackdrop"></div>
+<nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile">
+  <button class="mobile-drawer__close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
+  <ul>
+    <li><a href="#">Home</a></li>
+    {navGroups.map((group) => (
+      group.items ? (
+        <li class="has-dropdown">
+          <a href={group.href}>
+            {group.label}
+            <svg class="caret" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </a>
+          <ul class="dropdown">
+            {group.items.map((item) => (
+              <li><a href={group.label === 'Locations' ? '#locations' : '#'}>{item}</a></li>
+            ))}
+          </ul>
+        </li>
+      ) : (
+        <li><a href={group.href}>{group.label}</a></li>
+      )
+    ))}
+  </ul>
+  <div class="mobile-drawer__actions">
+    <a href="tel:0731320898" class="btn btn--outline"><i class="fas fa-phone-alt"></i> (07) 3132 0898</a>
+    <a href="#book" class="btn btn--primary">Book Now</a>
+  </div>
+</nav>
+
+<script>
+  const headerWrap = document.getElementById('siteHeaderWrap');
+  if (headerWrap) {
+    const onScroll = () => headerWrap.classList.toggle('is-scrolled', window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  const body = document.body;
+  const toggle = document.getElementById('mobileMenuToggle');
+  const closeBtn = document.getElementById('mobileMenuClose');
+  const backdrop = document.getElementById('mobileBackdrop');
+  const drawer = document.getElementById('mobileDrawer');
+
+  function openMenu() {
+    body.classList.add('mobile-menu-open');
+    toggle?.setAttribute('aria-expanded', 'true');
+    closeBtn?.focus();
+  }
+  function closeMenu() {
+    body.classList.remove('mobile-menu-open');
+    toggle?.setAttribute('aria-expanded', 'false');
+    toggle?.focus();
+  }
+
+  toggle?.addEventListener('click', openMenu);
+  closeBtn?.addEventListener('click', closeMenu);
+  backdrop?.addEventListener('click', closeMenu);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && body.classList.contains('mobile-menu-open')) closeMenu();
+  });
+
+  if (drawer) {
+    drawer.querySelectorAll('li.has-dropdown > a').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const li = link.parentElement;
+        const wasOpen = li.classList.contains('is-open');
+        drawer.querySelectorAll('li.has-dropdown').forEach((el) => el.classList.remove('is-open'));
+        if (!wasOpen) li.classList.add('is-open');
+      });
+    });
+  }
+
+  const navItems = document.querySelectorAll('.site-nav > ul > li');
+  navItems.forEach((li) => {
+    const link = li.querySelector(':scope > a[aria-haspopup]');
+    if (!link) return;
+    link.addEventListener('click', (e) => {
+      if (window.innerWidth < 900) return;
+      const hasDropdown = li.querySelector('.dropdown');
+      if (!hasDropdown) return;
+      e.preventDefault();
+      const wasOpen = li.classList.contains('is-open');
+      navItems.forEach((el) => el.classList.remove('is-open'));
+      if (!wasOpen) li.classList.add('is-open');
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!(e.target as Element).closest?.('.site-nav')) {
+      navItems.forEach((el) => el.classList.remove('is-open'));
+    }
+  });
+</script>

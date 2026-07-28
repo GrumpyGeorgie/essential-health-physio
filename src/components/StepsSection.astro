@@ -1,0 +1,38 @@
+---
+interface Step {
+  number: string;
+  icon?: string;
+  eyebrow: string;
+  title: string;
+  body: string;
+}
+
+interface Props {
+  headingPrefix: string;
+  headingAccent: string;
+  intro?: string;
+  steps: Step[];
+  cta?: { label: string; href: string };
+}
+
+const { headingPrefix, headingAccent, intro, steps, cta } = Astro.props;
+---
+
+<section class="section steps-section" data-reveal>
+  <h2>{headingPrefix} <span class="accent-word">{headingAccent}</span></h2>
+  {intro && <p>{intro}</p>}
+  <div class="steps-grid" data-reveal-group>
+    {steps.map((step) => (
+      <div class="step-card">
+        <span class="step-card__number">{step.number}</span>
+        {step.icon && (
+          <div class="step-card__icon"><i class={`fas ${step.icon}`}></i></div>
+        )}
+        <span class="eyebrow">{step.eyebrow}</span>
+        <h3>{step.title}</h3>
+        <p>{step.body}</p>
+      </div>
+    ))}
+  </div>
+  {cta && <a href={cta.href} class="btn btn--primary">{cta.label}</a>}
+</section>

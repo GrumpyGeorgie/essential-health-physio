@@ -1,0 +1,21 @@
+---
+const principles = [
+  { icon: 'fa-hand-holding-medical', title: 'Hands-On First', body: 'We treat in the first session. No "come back next week for the actual treatment." If hands-on work will help, you get it on day one, alongside your assessment.' },
+  { icon: 'fa-comment-medical', title: 'Honest Assessment', body: "You'll leave knowing what's wrong, what's driving it, and how long recovery will likely take. If we don't think we can help — or you'd benefit from a different specialist — we'll tell you straight." },
+  { icon: 'fa-clipboard-list', title: 'Structured Recovery', body: "Every patient leaves with a written plan: exactly what's wrong, what we'll do about it, how many sessions it should take, and what you need to do between visits. No vague \"let's see how it goes.\"" },
+];
+---
+
+<section class="section approach-section" data-reveal>
+  <h2>Our <span class="accent-word">Approach</span></h2>
+  <p>Three principles guide how we work — and they're the reason GPs across Logan trust us with their patients.</p>
+  <div class="approach-grid" data-reveal-group>
+    {principles.map((p) => (
+      <div class="approach-card">
+        <div class="approach-card__icon"><i class={`fas ${p.icon}`}></i></div>
+        <h3>{p.title}</h3>
+        <p>{p.body}</p>
+      </div>
+    ))}
+  </div>
+</section>

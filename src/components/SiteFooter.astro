@@ -1,0 +1,79 @@
+---
+const services = [
+  'Physiotherapy', 'Exercise Physiology', "Women's Health", 'Hydrotherapy', 'Clinical Pilates',
+  'Lymphoedema Therapy', 'Nutrition and Dietetics', 'NDIS', 'Home Visit Service', 'Massage Therapy',
+  'LASER Therapy', 'Prehabilitation and Post-operative Rehabilitation', 'Arthritis Management',
+  'Sports Injury Physiotherapy', 'Vestibular Rehabilitation', 'Headache Management',
+];
+
+const locations = [
+  {
+    name: 'Shailer Park',
+    embedQuery: '2%2F2%20Bulwarna%20St%2C%20Shailer%20Park%20QLD%204128%2C%20Australia',
+    hours: [
+      ['Monday', '8am - 7pm'], ['Tuesday', '8am - 7pm'], ['Wednesday', '8am - 7pm'],
+      ['Thursday', '8am - 7pm'], ['Friday', '8am - 7pm'], ['Saturday', '8am - 5pm'], ['Sunday', 'Closed'],
+    ],
+  },
+  {
+    name: 'Birkdale',
+    embedQuery: 'Shop%2020a%2F120%20Birkdale%20Rd%2C%20Birkdale%20QLD%204159%2C%20Australia',
+    hours: [
+      ['Monday', '8am - 6pm'], ['Tuesday', '8am - 6pm'], ['Wednesday', '8am - 6pm'],
+      ['Thursday', '8am - 6pm'], ['Friday', '8am - 6pm'], ['Saturday', '8am - 12:30pm'], ['Sunday', 'Closed'],
+    ],
+  },
+  {
+    name: 'Bracken Ridge',
+    embedQuery: '3%2F81%20Gawain%20Rd%2C%20Bracken%20Ridge%20QLD%204017%2C%20Australia',
+    hours: [
+      ['Monday', '7am - 7pm'], ['Tuesday', '7am - 7pm'], ['Wednesday', '7am - 7pm'],
+      ['Thursday', '7am - 7pm'], ['Friday', '7am - 7pm'], ['Saturday', '7am - 7pm'], ['Sunday', 'Closed'],
+    ],
+  },
+];
+---
+
+<footer class="site-footer" style="background:var(--color-deep-navy); color:#fff;">
+  <div class="site-footer__grid">
+    <div>
+      <img class="site-footer__brand-logo" src="/images/logo-white.png" alt="Essential Health Physio" />
+      <ul class="site-footer__contact-list">
+        <li><i class="fas fa-map-marker-alt"></i><span>2/2 Bulwarna St., Shailer Park</span></li>
+        <li><i class="fas fa-map-marker-alt"></i><span>Shop 20a/120 Birkdale Rd, Birkdale</span></li>
+        <li><i class="fas fa-map-marker-alt"></i><span>3/81 Gawain Rd, Bracken Ridge</span></li>
+        <li><i class="fas fa-phone-alt"></i><a href="tel:0731320898">(07) 3132 0898 — Shailer Park</a></li>
+        <li><i class="fas fa-phone-alt"></i><a href="tel:0738228879">(07) 3822 8879 — Birkdale</a></li>
+        <li><i class="fas fa-phone-alt"></i><a href="tel:0434056193">(04) 3405 6193 — Bracken Ridge</a></li>
+        <li><i class="fas fa-envelope"></i><a href="mailto:essentialhealthphysio@gmail.com">essentialhealthphysio@gmail.com</a></li>
+      </ul>
+      <div class="site-footer__socials">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <ul>
+        {services.map((s) => <li>{s}</li>)}
+      </ul>
+    </div>
+    {locations.map((loc) => (
+      <div>
+        <h4>{loc.name}</h4>
+        <iframe class="site-footer__map-frame" loading="lazy" title={`Map — ${loc.name}`} src={`https://maps.google.com/maps?q=${loc.embedQuery}&t=m&z=12&output=embed&iwloc=near`}></iframe>
+        <h4>Opening Hours</h4>
+        <ul class="site-footer__hours">
+          {loc.hours.map(([day, time]) => (
+            <li><span>{day}</span><span>{time}</span></li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+  <div class="site-footer__bottom">
+    <span>Copyright &copy; 2026 Essential Health Physio</span>
+    <span><a href="#">Terms</a> &middot; <a href="#">Privacy</a> &middot; Website by The Sales Driven Website</span>
+  </div>
+</footer>

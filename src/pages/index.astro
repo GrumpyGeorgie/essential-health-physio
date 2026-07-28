@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import Hero from '../components/Hero.astro';
+import QuizSection from '../components/QuizSection.astro';
+import StatBand from '../components/StatBand.astro';
+import StoryVideo from '../components/StoryVideo.astro';
+import FounderSplit from '../components/FounderSplit.astro';
+import StepsSection from '../components/StepsSection.astro';
+import HowWeHelp from '../components/HowWeHelp.astro';
+import LocationsSection from '../components/LocationsSection.astro';
+import ServicesFlip from '../components/ServicesFlip.astro';
+import FAQSection from '../components/FAQSection.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import ScrollReveal from '../components/ScrollReveal.astro';
+
+const physioSteps = [
+  { number: '01', icon: 'fa-magnifying-glass', eyebrow: 'Step 1', title: 'In-depth Examination', body: "Our journey begins with a thorough assessment. We'll uncover the root causes of your presenting problem creating a personalised plan just for you." },
+  { number: '02', icon: 'fa-bolt', eyebrow: 'Step 2', title: 'Immediate Solution', body: 'No need to wait for months or years to feel the difference. We provide a combination of hands-on therapy, exercises and expert advice for a fast and lasting outcome.' },
+  { number: '03', icon: 'fa-arrows-rotate', eyebrow: 'Step 3', title: 'Independent Lifestyle', body: "We're with you for the long run. Our focus is on equipping you with the knowledge and tools to stay problem-free and regain your active life." },
+];
+
+const faqItems = [
+  { q: "Do I need a doctor's referral?", a: 'No referral is required to book an appointment — you can book directly with us.' },
+  { q: 'What would you expect in the first appointment?', a: 'A thorough, comprehensive assessment to understand the root cause of your condition and build a clear, written treatment plan.' },
+  { q: 'What do I wear for my appointment?', a: 'Comfortable, loose-fitting clothing that allows easy movement and access to the area being assessed.' },
+  { q: 'Do you bulk bill?', a: 'Please contact your nearest clinic to confirm current billing and funding pathway options (Private Health, WorkCover, CTP, NDIS, DVA, Medicare).' },
+  { q: 'Is there any risk involved with the session?', a: 'Our assessments and treatments are evidence-based and delivered by qualified physiotherapists — any risks specific to your condition will be discussed with you directly.' },
+];
+---
+
+<BaseLayout title="Essential Health Physio — Homepage" description="Physiotherapists in Shailer Park, Birkdale & Bracken Ridge. Pain reduction and improved movement through effective physiotherapy.">
+  <SiteHeader />
+  <Hero />
+  <QuizSection />
+  <StatBand />
+  <StoryVideo />
+  <FounderSplit />
+  <StepsSection headingPrefix="Physio Made" headingAccent="Easy" steps={physioSteps} cta={{ label: 'Call Now', href: 'tel:0731320898' }} />
+  <HowWeHelp />
+  <LocationsSection />
+  <ServicesFlip />
+  <FAQSection heading="FAQs" intro="These are the commonly asked questions our patients have for us." items={faqItems} fundingBadges />
+  <SiteFooter />
+  <ScrollReveal />
+</BaseLayout>

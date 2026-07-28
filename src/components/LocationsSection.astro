@@ -1,0 +1,45 @@
+---
+const locations = [
+  {
+    name: 'Shailer Park',
+    address: '2/2 Bulwarna St, Shailer Park QLD 4128',
+    phoneDisplay: '(07) 3132 0898',
+    phoneHref: 'tel:0731320898',
+    mapsQuery: '2%2F2+Bulwarna+St%2C+Shailer+Park+QLD+4128',
+    embedQuery: '2%2F2%20Bulwarna%20St%2C%20Shailer%20Park%20QLD%204128%2C%20Australia',
+  },
+  {
+    name: 'Birkdale',
+    address: 'Shop 20a/120 Birkdale Rd, Birkdale QLD 4159',
+    phoneDisplay: '(07) 3822 8879',
+    phoneHref: 'tel:0738228879',
+    mapsQuery: 'Shop+20a%2F120+Birkdale+Rd%2C+Birkdale+QLD+4159',
+    embedQuery: 'Shop%2020a%2F120%20Birkdale%20Rd%2C%20Birkdale%20QLD%204159%2C%20Australia',
+  },
+  {
+    name: 'Bracken Ridge',
+    address: '3/81 Gawain Rd, Bracken Ridge QLD 4017',
+    phoneDisplay: '(04) 3405 6193',
+    phoneHref: 'tel:0434056193',
+    mapsQuery: '3%2F81+Gawain+Rd%2C+Bracken+Ridge+QLD+4017',
+    embedQuery: '3%2F81%20Gawain%20Rd%2C%20Bracken%20Ridge%20QLD%204017%2C%20Australia',
+  },
+];
+---
+
+<section class="section locations-section text-center" id="locations" data-reveal>
+  <h2>We are located at&hellip;</h2>
+  <div class="locations-grid" data-reveal-group>
+    {locations.map((loc) => (
+      <div class="location-card">
+        <div class="location-card__body">
+          <h3>{loc.name}</h3>
+          <address>{loc.address}</address>
+          <a href={loc.phoneHref} class="btn btn--dark" style="width:100%; margin-bottom:var(--space-xs);"><i class="fas fa-phone-alt"></i> {loc.phoneDisplay}</a>
+          <a href={`https://www.google.com/maps/search/?api=1&query=${loc.mapsQuery}`} target="_blank" rel="noopener" class="location-card__maps-link">Open in Maps <i class="fas fa-arrow-up-right-from-square" style="font-size:11px;"></i></a>
+        </div>
+        <iframe class="location-card__map-frame" loading="lazy" title={`Map — ${loc.name}`} src={`https://maps.google.com/maps?q=${loc.embedQuery}&t=m&z=13&output=embed&iwloc=near`}></iframe>
+      </div>
+    ))}
+  </div>
+</section>

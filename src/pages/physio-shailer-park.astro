@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LpHeader from '../components/lp/LpHeader.astro';
+import LpHero from '../components/lp/LpHero.astro';
+import BookingBanner from '../components/lp/BookingBanner.astro';
+import TreatSection from '../components/lp/TreatSection.astro';
+import CtaBand from '../components/lp/CtaBand.astro';
+import StepsSection from '../components/StepsSection.astro';
+import LpServices from '../components/lp/LpServices.astro';
+import ApproachSection from '../components/lp/ApproachSection.astro';
+import CallCta from '../components/lp/CallCta.astro';
+import FAQSection from '../components/FAQSection.astro';
+import InstagramCta from '../components/lp/InstagramCta.astro';
+import FinalCta from '../components/lp/FinalCta.astro';
+import LpFooter from '../components/lp/LpFooter.astro';
+import ScrollReveal from '../components/ScrollReveal.astro';
+
+const howWeWorkSteps = [
+  { number: '01', eyebrow: 'Step 1', title: 'We Listen and Assess Thoroughly', body: "Your first session is a full hour. We ask about your pain, what you've tried, and how it's affecting your daily life. Then we do a proper hands-on and movement assessment to find the root cause." },
+  { number: '02', eyebrow: 'Step 2', title: 'You Get Treated — Not Just Assessed', body: 'Most patients receive hands-on treatment in that first hour. You walk away with three things: a clear diagnosis, relief from treatment, and a written recovery plan with realistic timeframes.' },
+  { number: '03', eyebrow: 'Step 3', title: 'Your Whole Care Team, One Building', body: "If your recovery needs exercise physiology, massage, dietetics, or women's health physio — it's all here. One set of records, one team that talks to each other about your care." },
+];
+
+const faqItems = [
+  { q: 'Do I need a referral to see a physio?', a: "No. You can book directly without a GP referral. Our physiotherapists are qualified to assess, diagnose, and create a management plan for your condition. If we think medical input would help, we'll coordinate with your GP or specialist." },
+  { q: 'What happens at the first appointment?', a: "Your initial session is a full 1-hour assessment. We'll listen to your history, assess your movement, identify what's driving the problem, and talk through a structured treatment plan. Most patients get hands-on treatment in that first session too." },
+  { q: 'Do you accept WorkCover, DVA, and NDIS?', a: "Yes, all three. We handle the documentation and reporting. If you're on a WorkCover or CTP claim, we'll work with your insurer and employer to keep your recovery on track." },
+  { q: 'What makes your clinic different from other physios in the area?', a: 'Two things. First, every new patient gets a full 1-hour assessment instead of the standard 30 minutes. Second, we have physio, exercise physiology, remedial massage, women\'s health physiotherapy, dietetics, lymphoedema therapy, and hydrotherapy all in one building. If your recovery needs more than physio alone, we walk you down the hall instead of referring you across town.' },
+  { q: 'Is there parking at the clinic?', a: 'Yes. The Shailer Park clinic has on-site parking on Bulwarna Street.' },
+  { q: 'What conditions can physiotherapy help with?', a: 'Physiotherapy can assist with many different conditions such as headache, back and spinal pain, and shoulder pain. Our physiotherapists are well trained in helping individuals get their pain better controlled. Physiotherapy can also help with dizziness, imbalance, weakness, and many other physical conditions. If you\'re not sure, you can book a complimentary 15-minute consultation with our Director therapist to discuss more.' },
+  { q: 'How many physiotherapy sessions will I need?', a: 'The number of sessions depends on the condition, duration, and severity of someone\'s presentation. Most people require between 6 and 12 sessions for better relief and a long-lasting result. Your sessions are structured to progress toward self-management and create long-term, impactful changes in your physical health.' },
+  { q: 'Can physiotherapy help with chronic pain?', a: 'Absolutely — physiotherapists are experts in the field of chronic pain management. Physiotherapy is very well equipped with the latest technology and treatment techniques, and the ability to prescribe an individualised exercise program to help you better manage chronic pain.' },
+  { q: 'Can physiotherapy help me avoid surgery?', a: 'Physiotherapy can definitely help with specific conditions to avoid surgery. A lot of recent research has shown that physiotherapy treatment can be as effective as surgery for certain conditions in the right situation. The best step is an initial assessment with one of our physiotherapists, or a complimentary phone appointment with our Director therapist, to provide specific guidance about your condition.' },
+  { q: 'What should I wear to my appointment?', a: "It's best to wear comfortable, loose clothing. Your clothing should be flexible enough for your therapist to access the area being treated and complete a thorough assessment and management." },
+  { q: 'Can physiotherapy help with back, neck, shoulder, or knee pain?', a: 'Absolutely — these are the most common areas our clinic treats for pain management.' },
+  { q: 'Can I claim with private health insurance?', a: 'Yes — we can claim your private health fund on the spot if your policy covers physiotherapy treatment.' },
+  { q: 'Do you offer hands-on treatment and exercise rehabilitation?', a: "We definitely do. From your first session you'll receive specific advice about your condition, a management plan, hands-on treatment, and a tailored exercise program." },
+  { q: 'How soon can I get an appointment?', a: "We often have same-day appointments available. If you can't find a suitable time, give us a call and we'll find one for you." },
+];
+---
+
+<BaseLayout title="Physio Shailer Park — Essential Health Physio" description="Regain confidence in living pain free. Physiotherapy, exercise physiology, remedial massage, women's health physio, dietetics and hydrotherapy — all in one Shailer Park clinic.">
+  <LpHeader />
+  <LpHero />
+  <BookingBanner />
+  <TreatSection />
+  <CtaBand />
+  <StepsSection headingPrefix="How We" headingAccent="Work" intro="We do things differently from the typical 30-minute physio appointment." steps={howWeWorkSteps} />
+  <LpServices />
+  <ApproachSection />
+  <CallCta />
+  <FAQSection heading="Common Questions" items={faqItems} />
+  <InstagramCta />
+  <FinalCta />
+  <LpFooter />
+  <ScrollReveal />
+</BaseLayout>

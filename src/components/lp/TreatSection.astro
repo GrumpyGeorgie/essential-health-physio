@@ -1,0 +1,24 @@
+---
+const conditions = [
+  'Chronic and acute back pain',
+  'Neck pain, headaches, and migraines',
+  'Shoulder injuries and frozen shoulder',
+  'Knee pain, ACL injuries, and post-replacement rehab',
+  'Hip and groin pain',
+  'Ankle sprains, foot pain, and Achilles problems',
+  'Sports and gym injuries',
+  'Pre-operative and post-surgical rehabilitation',
+  'Arthritis and joint stiffness',
+  "Women's health and pregnancy-related pain",
+  'Workplace and motor vehicle accident injuries',
+  'Chronic pain and complex conditions',
+];
+---
+
+<section class="section treat-section" data-reveal>
+  <h2>What We <span class="accent-word">Treat</span></h2>
+  <p>Whether it's something that flared up yesterday or pain you've been putting up with for months, our team treats a broad range of musculoskeletal and movement conditions:</p>
+  <ul class="treat-grid" data-reveal-group>
+    {conditions.map((c) => <li><i class="fas fa-check"></i> {c}</li>)}
+  </ul>
+</section>

@@ -1,0 +1,36 @@
+---
+interface QA { q: string; a: string }
+
+interface Props {
+  heading: string;
+  intro?: string;
+  items: QA[];
+  fundingBadges?: boolean;
+}
+
+const { heading, intro, items, fundingBadges = false } = Astro.props;
+---
+
+<section class="section faq-band" data-reveal>
+  <div class="faq-section">
+    <div>
+      <h2>{heading}</h2>
+      {intro && <p>{intro}</p>}
+    </div>
+    <div class="faq__list">
+      {items.map((item) => (
+        <details>
+          <summary>{item.q} <span class="faq__icon"><i class="fas fa-chevron-down"></i></span></summary>
+          <div class="faq__panel"><p set:html={item.a} /></div>
+        </details>
+      ))}
+    </div>
+  </div>
+  {fundingBadges && (
+    <div class="funding-badges">
+      <img src="/images/ndis.png" alt="Registered NDIS Provider" />
+      <img src="/images/workcover.png" alt="WorkCover Queensland" />
+      <img src="/images/wha.png" alt="WHA" />
+    </div>
+  )}
+</section>

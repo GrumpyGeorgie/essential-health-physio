@@ -1,0 +1,60 @@
+---
+const services = [
+  {
+    label: 'Physiotherapy',
+    image: '/images/service-physiotherapy.jpg',
+    body: 'Involves a series of gentle pressures applied to a specific region of your body by your therapist.',
+  },
+  {
+    label: 'Exercise Physiology',
+    image: '/images/service-exercise-physiology.jpg',
+    body: 'Involves the selection of appropriate exercise program to achieve a desired outcome.',
+  },
+  {
+    label: 'Nutrition & Dietetics',
+    image: '/images/service-nutrition-dietetics.jpg',
+    body: 'Personalised dietary guidance to amplify your journey to optimal health and vitality.',
+  },
+];
+---
+
+<!-- Services — flip cards. Flips on hover for mouse users and on click/Enter for
+     touch and keyboard users (tabindex + button semantics, never hover-only). -->
+<section class="section services-section" id="services" data-reveal>
+  <div class="text-center">
+    <h2>Our Services</h2>
+    <p style="font-size:var(--text-large);">Our therapists use a gentle and modern approach to help you to achieve pain free movements and regain normal function. All treatments are selected based on a comprehensive assessment and a personalised management program.</p>
+  </div>
+  <div class="services-grid" data-reveal-group>
+    {services.map((service) => (
+      <div class="service-flip" tabindex="0" role="button" aria-label={`${service.label} — show details`}>
+        <div class="service-flip__inner">
+          <div class="service-flip__face service-flip__front" style={`background-image:url('${service.image}')`}>
+            <span class="service-flip__label">{service.label}</span>
+          </div>
+          <div class="service-flip__face service-flip__back">
+            <h3>{service.label}</h3>
+            <p>{service.body}</p>
+            <a href="#" class="card__link">Learn More</a>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+  <div class="text-center">
+    <a href="#" class="btn btn--primary">See All Services</a>
+  </div>
+</section>
+
+<script>
+  // Service flip cards — hover works via CSS for mouse users; click/Enter/Space
+  // toggles for touch and keyboard users, since hover doesn't exist on touch devices.
+  document.querySelectorAll('.service-flip').forEach((card) => {
+    function toggleFlip() { card.classList.toggle('is-flipped'); }
+    card.addEventListener('click', toggleFlip);
+    card.addEventListener('keydown', (e) => {
+      const ke = e as KeyboardEvent;
+      if (ke.key === 'Enter' || ke.key === ' ') { ke.preventDefault(); toggleFlip(); }
+    });
+  });
+</script>
