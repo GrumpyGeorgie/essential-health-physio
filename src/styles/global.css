@@ -393,9 +393,28 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .lp-hero__side { display: flex; flex-direction: column; gap: var(--space-m); }
 .lp-hero__video { border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg); background: #000; aspect-ratio: 16/9; }
 .lp-hero__video video { width: 100%; height: 100%; object-fit: cover; display: block; }
-.lp-hero__survey { border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg); background: #fff; padding: 4px; }
-.lp-hero__survey iframe { width: 100%; height: 460px; border: 0; display: block; border-radius: calc(var(--radius-md) - 4px); }
-@media (max-width: 640px) { .lp-hero__survey iframe { height: 420px; } }
+.lp-hero__survey { border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg); background: #fff; }
+
+/* Native patient survey form — replaces the old GHL iframe embed. Submissions are
+   captured by GHL's External Tracking script (see physio-shailer-park.astro <head>). */
+.survey-form { padding: var(--space-l); }
+.survey-form__title { font-size: var(--text-h3); margin-bottom: var(--space-m); }
+.survey-form__field { border: 0; margin-bottom: var(--space-m); }
+.survey-form__field legend { font-family: var(--font-heading); font-weight: 700; font-size: var(--text-body); color: var(--color-foreground); margin-bottom: var(--space-s); padding: 0; }
+.survey-form__field label:not(.survey-form__checkbox) { display: block; font-weight: 600; font-size: var(--text-small); margin-bottom: var(--space-2xs); }
+.survey-form__hint { color: var(--color-muted); font-weight: 400; text-transform: none; letter-spacing: 0; font-size: var(--text-small); }
+.survey-form input[type="text"], .survey-form input[type="email"], .survey-form input[type="tel"] {
+  width: 100%; padding: 12px 14px; border: 1px solid var(--color-surface); border-radius: var(--radius-sm);
+  font-family: var(--font-body); font-size: var(--text-body); background: var(--color-surface);
+}
+.survey-form input[type="text"]:focus, .survey-form input[type="email"]:focus, .survey-form input[type="tel"]:focus {
+  outline: 2px solid var(--color-primary); outline-offset: 1px; background: #fff;
+}
+.survey-form__checkboxes { display: flex; flex-direction: column; gap: var(--space-xs); }
+.survey-form__checkbox { display: flex; align-items: center; gap: var(--space-xs); font-size: var(--text-small); cursor: pointer; }
+.survey-form__checkbox input { width: 16px; height: 16px; accent-color: var(--color-primary); flex-shrink: 0; }
+.survey-form__submit { width: 100%; }
+.survey-form__success { padding: var(--space-l); color: var(--color-primary-dark); font-weight: 600; font-size: var(--text-large); }
 .lp-hero .eyebrow { color: var(--accent-mint); }
 .lp-hero h1 { color: #fff; font-size: var(--text-h1); margin-bottom: var(--space-l); }
 .lp-hero__list { list-style: none; margin-bottom: var(--space-l); }

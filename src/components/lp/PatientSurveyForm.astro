@@ -1,0 +1,66 @@
+---
+// Native HTML form, replacing the previous GHL survey iframe embed.
+// Field `name` attributes follow GHL's External Tracking conventions so submissions
+// get captured as leads once the tracking script (see physio-shailer-park.astro) is
+// wired up with a real tracking ID from Settings → External Tracking in GHL.
+const struggles = [
+  'Trouble sleeping',
+  'Difficulty returning to training / hobbies',
+  'Pain keeps coming back',
+  'Limited range of motion',
+  'Sharp pain when moving',
+  'Not sure — just in pain',
+];
+---
+
+<form class="survey-form" id="patientSurveyForm">
+  <h3 class="survey-form__title">Fill Out The Survey Below To Help You Get Your Personalised Recovery Journey Started</h3>
+
+  <fieldset class="survey-form__field">
+    <legend>What is your main struggle now? <span class="survey-form__hint">(select all that apply)</span></legend>
+    <div class="survey-form__checkboxes">
+      {struggles.map((label, i) => (
+        <label class="survey-form__checkbox">
+          <input type="checkbox" name="main_struggle" value={label} id={`struggle-${i}`} />
+          <span>{label}</span>
+        </label>
+      ))}
+    </div>
+  </fieldset>
+
+  <div class="survey-form__field">
+    <label for="first_name">First name</label>
+    <input type="text" name="first_name" id="first_name" autocomplete="given-name" required />
+  </div>
+
+  <div class="survey-form__field">
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" autocomplete="email" required />
+  </div>
+
+  <div class="survey-form__field">
+    <label for="phone">Phone</label>
+    <input type="tel" name="phone" id="phone" autocomplete="tel" required />
+  </div>
+
+  <button type="submit" class="btn btn--primary survey-form__submit">Get My Recovery Plan</button>
+</form>
+
+<p class="survey-form__success" id="surveySuccess" role="status" hidden>
+  Thanks — we've got your details and will be in touch shortly to get your recovery plan started.
+</p>
+
+<script>
+  const form = document.getElementById('patientSurveyForm') as HTMLFormElement | null;
+  const success = document.getElementById('surveySuccess');
+
+  // GHL's External Tracking script (added in the page <head>/<body>, see
+  // physio-shailer-park.astro) listens for this form's native 'submit' event and
+  // captures the field values independently of what this handler does — we just
+  // own the on-page UX (swap to a thank-you message instead of a real navigation).
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    form.hidden = true;
+    if (success) success.hidden = false;
+  });
+</script>
