@@ -9,6 +9,28 @@
 const GHL_LOCATION_ID = '5RSV9kpgbRBqjKQfOVjq';
 const GHL_API_VERSION = '2021-07-28';
 
+// Verified by querying GHL's existing custom fields (2026-07-29) — these 5 fields
+// already existed from a prior GHL-native survey, just under confusingly-renamed
+// fieldKeys (copy-paste history). Matched by exact picklistOptions comparison, not
+// guessed. Do not regenerate these — if the fields are ever recreated in GHL, update
+// the ids here.
+const CUSTOM_FIELD_IDS = {
+  main_struggle: 'K7BLmhXAAb4vEbFco8yu',
+  problem_cause: 'C9lfGdNeRDdrUtdvSoRn',
+  services_interested: 'So0A4BPVrP6HawoxBbQk',
+  contact_method: 'YjXlh4i2GnUlWGn8DHiB',
+  clinic_location: 'Tt6oNysYKfBj3qfDOgG4',
+};
+
+// Our form's on-page copy fixed a typo GHL's stored picklist option still has
+// ("activites"). GHL's custom fields disallow custom options
+// (isAllowedCustomOption: false), so the submitted value must match the picklist
+// string exactly or it won't be recorded — translate back to GHL's stored spelling
+// here, invisibly to the user.
+const VALUE_CORRECTIONS = {
+  'Struggle to go out to attend social or family activities': 'Struggle to go out to attend social or family activites',
+};
+
 function splitName(fullName) {
   const trimmed = (fullName || '').trim();
   const spaceIndex = trimmed.indexOf(' ');
@@ -16,9 +38,10 @@ function splitName(fullName) {
   return { firstName: trimmed.slice(0, spaceIndex), lastName: trimmed.slice(spaceIndex + 1) };
 }
 
-function toCustomField(key, value) {
-  if (Array.isArray(value)) value = value.join(', ');
-  return { key, field_value: value || '' };
+function toCustomField(fieldKey, value) {
+  const values = Array.isArray(value) ? value : [value];
+  const corrected = values.map((v) => VALUE_CORRECTIONS[v] || v);
+  return { id: CUSTOM_FIELD_IDS[fieldKey], field_value: corrected.join(', ') };
 }
 
 export async function onRequestPost({ request, env }) {
