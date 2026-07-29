@@ -111,7 +111,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .btn--outline-dark { background: transparent; color: var(--color-primary); border-color: var(--color-primary); }
 .btn--outline-dark:hover { background: var(--color-surface); transform: translateY(-2px); }
 .btn:active { transform: translateY(0); }
-.btn-group { display: flex; gap: var(--space-s); flex-wrap: wrap; }
+.btn-group { display: flex; gap: var(--space-s); flex-wrap: wrap; justify-content: center; }
 @media (prefers-reduced-motion: reduce) { .btn:hover { transform: none; } }
 
 /* Step cards — reused between homepage "Physio Made Easy" and LP "How We Work" */
