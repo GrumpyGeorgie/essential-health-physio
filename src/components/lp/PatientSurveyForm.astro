@@ -103,6 +103,7 @@ const totalSteps = steps.length + 1;
       <button type="button" class="survey-form__nav-btn" id="surveyNext" aria-label="Next question">&rarr;</button>
       <button type="submit" class="survey-form__submit-btn" id="surveySubmitBtn" hidden>SUBMIT</button>
     </div>
+    <p class="survey-form__error" id="surveySubmitError" hidden>Something went wrong submitting your details — please call us instead, or try again.</p>
   </form>
 </div>
 
@@ -173,15 +174,45 @@ const totalSteps = steps.length + 1;
     showStep(current);
   });
 
-  // GHL's External Tracking script (added in the page <head>/<body>, see
-  // physio-shailer-park.astro) listens for this form's native 'submit' event and
-  // captures the field values independently of what this handler does — we just
-  // own the on-page UX (swap to a thank-you message instead of a real navigation).
-  form?.addEventListener('submit', (e) => {
+  function checkedValues(name) {
+    return Array.from(form.querySelectorAll(`input[name="${name}"]:checked`)).map((el) => el.value);
+  }
+
+  const submitError = document.getElementById('surveySubmitError');
+
+  form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!validateStep(current)) return;
-    wrapper.hidden = true;
-    if (success) success.hidden = false;
+
+    submitError.hidden = true;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'SUBMITTING…';
+
+    const payload = {
+      full_name: form.querySelector('[name="full_name"]').value.trim(),
+      phone: form.querySelector('[name="phone"]').value.trim(),
+      email: form.querySelector('[name="email"]').value.trim(),
+      main_struggle: checkedValues('main_struggle'),
+      problem_cause: checkedValues('problem_cause'),
+      services_interested: checkedValues('services_interested'),
+      contact_method: checkedValues('contact_method'),
+      clinic_location: checkedValues('clinic_location'),
+    };
+
+    try {
+      const res = await fetch('/api/submit-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('submit failed');
+      wrapper.hidden = true;
+      if (success) success.hidden = false;
+    } catch {
+      submitError.hidden = false;
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'SUBMIT';
+    }
   });
 
   showStep(current);
