@@ -396,13 +396,17 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .lp-hero__survey { border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg); background: #fff; }
 
 /* Native patient survey form — replaces the old GHL iframe embed. Submissions are
-   captured by GHL's External Tracking script (see physio-shailer-park.astro <head>). */
+   captured by GHL's External Tracking script (see physio-shailer-park.astro <head>).
+   Multi-step wizard: 5 question steps + 1 contact-details step, matching the live
+   GHL survey's structure exactly. */
 .survey-form { padding: var(--space-l); }
+.survey-form__progress { height: 4px; background: var(--color-surface); border-radius: var(--radius-full); overflow: hidden; margin-bottom: var(--space-m); }
+.survey-form__progress-bar { height: 100%; background: var(--color-primary); transition: width .25s ease; }
 .survey-form__title { font-size: var(--text-h3); margin-bottom: var(--space-m); }
-.survey-form__field { border: 0; margin-bottom: var(--space-m); }
-.survey-form__field legend { font-family: var(--font-heading); font-weight: 700; font-size: var(--text-body); color: var(--color-foreground); margin-bottom: var(--space-s); padding: 0; }
-.survey-form__field label:not(.survey-form__checkbox) { display: block; font-weight: 600; font-size: var(--text-small); margin-bottom: var(--space-2xs); }
+.survey-form__question { font-family: var(--font-heading); font-weight: 700; font-size: var(--text-body); color: var(--color-foreground); margin-bottom: var(--space-s); }
 .survey-form__hint { color: var(--color-muted); font-weight: 400; text-transform: none; letter-spacing: 0; font-size: var(--text-small); }
+.survey-form__field { margin-bottom: var(--space-m); }
+.survey-form__field label { display: block; font-weight: 600; font-size: var(--text-small); margin-bottom: var(--space-2xs); }
 .survey-form input[type="text"], .survey-form input[type="email"], .survey-form input[type="tel"] {
   width: 100%; padding: 12px 14px; border: 1px solid var(--color-surface); border-radius: var(--radius-sm);
   font-family: var(--font-body); font-size: var(--text-body); background: var(--color-surface);
@@ -410,10 +414,16 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .survey-form input[type="text"]:focus, .survey-form input[type="email"]:focus, .survey-form input[type="tel"]:focus {
   outline: 2px solid var(--color-primary); outline-offset: 1px; background: #fff;
 }
-.survey-form__checkboxes { display: flex; flex-direction: column; gap: var(--space-xs); }
+.survey-form__checkboxes { display: flex; flex-direction: column; gap: var(--space-xs); margin-bottom: var(--space-xs); }
 .survey-form__checkbox { display: flex; align-items: center; gap: var(--space-xs); font-size: var(--text-small); cursor: pointer; }
 .survey-form__checkbox input { width: 16px; height: 16px; accent-color: var(--color-primary); flex-shrink: 0; }
-.survey-form__submit { width: 100%; }
+.survey-form__error { color: #D92D20; font-size: var(--text-small); margin-top: var(--space-xs); }
+.survey-form__nav { display: flex; align-items: center; justify-content: space-between; margin-top: var(--space-m); }
+.survey-form__nav-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--color-surface); background: #fff; color: var(--color-primary); font-size: 1rem; cursor: pointer; transition: background-color .15s ease; }
+.survey-form__nav-btn:hover { background: var(--color-surface); }
+.survey-form__step-label { color: var(--color-muted); font-size: var(--text-small); }
+.survey-form__submit-btn { padding: 10px 24px; border-radius: var(--radius-sm); background: var(--color-primary); color: #fff; font-family: var(--font-heading); font-weight: 700; font-size: var(--text-small); text-transform: uppercase; letter-spacing: 0.03em; border: 0; cursor: pointer; transition: background-color .15s ease; }
+.survey-form__submit-btn:hover { background: var(--color-primary-dark); }
 .survey-form__success { padding: var(--space-l); color: var(--color-primary-dark); font-weight: 600; font-size: var(--text-large); }
 .lp-hero .eyebrow { color: var(--accent-mint); }
 .lp-hero h1 { color: #fff; font-size: var(--text-h1); margin-bottom: var(--space-l); }

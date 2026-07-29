@@ -1,58 +1,177 @@
 ---
-// Native HTML form, replacing the previous GHL survey iframe embed.
-// Field `name` attributes follow GHL's External Tracking conventions so submissions
-// get captured as leads once the tracking script (see physio-shailer-park.astro) is
-// wired up with a real tracking ID from Settings → External Tracking in GHL.
-const struggles = [
-  'Trouble sleeping',
-  'Difficulty returning to training / hobbies',
-  'Pain keeps coming back',
-  'Limited range of motion',
-  'Sharp pain when moving',
-  'Not sure — just in pain',
+// Native multi-step form, replacing the previous GHL survey iframe embed.
+// Field/question set captured directly from the live GHL survey (all 6 steps).
+// Field `name` attributes follow GHL's External Tracking conventions so full_name/
+// phone/email map to standard contact fields automatically. The 5 multi-select
+// questions below (main_struggle, problem_cause, services_interested,
+// contact_method, clinic_location) are CUSTOM fields — per GHL's own docs, External
+// Tracking does not capture arbitrary custom field data by default; matching
+// "holder" custom fields need to be created in GHL first (Settings → Custom Fields)
+// or this data won't persist even though the tracking script is wired up. Flag this
+// to Michael before launch — the standard contact fields will work either way, but
+// the survey answers themselves need that GHL-side setup to actually be captured.
+//
+// Two small deviations from the live survey, not silently copied:
+// - Step 2's question had a stray "(copy)" suffix (form-builder artifact, not
+//   meant for patients) — dropped here.
+// - Fixed two typos: "Difficulty returning to Training/ Hobbies" → "Training /
+//   Hobbies" (spacing), "activites" → "activities".
+const steps = [
+  {
+    name: 'main_struggle',
+    question: 'What is your main struggle now?',
+    hint: '(Can select one or multiple)',
+    options: [
+      'Trouble Sleeping',
+      'Difficulty returning to Training / Hobbies',
+      'Pain Keeps Coming back',
+      'Struggle to go out to attend social or family activities',
+      'Unable to work',
+    ],
+  },
+  {
+    name: 'problem_cause',
+    question: 'Which of the following has lead to the current problem?',
+    hint: '(Can select one or multiple)',
+    options: ['Pain', 'Lack of strength', 'No long term rehabilitation plan', 'Tried other treatment but not working'],
+  },
+  {
+    name: 'services_interested',
+    question: 'What is/are the services you would be interested?',
+    hint: '(Can select one or multiple)',
+    options: ['Physiotherapy', 'Exercise Physiology', 'Remedial Massage Therapy', 'Dietitian', "Women's Health", 'All of the Above'],
+  },
+  {
+    name: 'contact_method',
+    question: 'What is your preferred method of contact to get you started?',
+    hint: '',
+    options: ['Phone', 'Text message', 'Email'],
+  },
+  {
+    name: 'clinic_location',
+    question: 'Which clinic is more convenient for you to attend?',
+    hint: '',
+    options: ['Shailer Park', 'Birkdale', 'Bracken Ridge'],
+  },
 ];
+const totalSteps = steps.length + 1;
 ---
 
-<form class="survey-form" id="patientSurveyForm">
+<div class="survey-form" id="patientSurveyForm">
+  <div class="survey-form__progress"><div class="survey-form__progress-bar" id="surveyProgressBar"></div></div>
   <h3 class="survey-form__title">Fill Out The Survey Below To Help You Get Your Personalised Recovery Journey Started</h3>
 
-  <fieldset class="survey-form__field">
-    <legend>What is your main struggle now? <span class="survey-form__hint">(select all that apply)</span></legend>
-    <div class="survey-form__checkboxes">
-      {struggles.map((label, i) => (
-        <label class="survey-form__checkbox">
-          <input type="checkbox" name="main_struggle" value={label} id={`struggle-${i}`} />
-          <span>{label}</span>
-        </label>
-      ))}
+  <form id="surveyFormEl" novalidate>
+    {steps.map((step, i) => (
+      <div class="survey-form__step" data-step={i + 1}>
+        <p class="survey-form__question">
+          {step.question} {step.hint && <span class="survey-form__hint">{step.hint}</span>} <span aria-hidden="true">*</span>
+        </p>
+        <div class="survey-form__checkboxes" data-question-group={step.name}>
+          {step.options.map((label, j) => (
+            <label class="survey-form__checkbox">
+              <input type="checkbox" name={step.name} value={label} id={`${step.name}-${j}`} />
+              <span>{label}</span>
+            </label>
+          ))}
+        </div>
+        <p class="survey-form__error" data-error-for={i + 1} hidden>{step.question} {step.hint} is required</p>
+      </div>
+    ))}
+
+    <div class="survey-form__step" data-step={totalSteps}>
+      <div class="survey-form__field">
+        <label for="full_name">Full Name *</label>
+        <input type="text" id="full_name" name="full_name" placeholder="Enter your full name" required />
+        <p class="survey-form__error" data-error-for="full_name" hidden>Full Name is required</p>
+      </div>
+      <div class="survey-form__field">
+        <label for="phone">Phone *</label>
+        <input type="tel" id="phone" name="phone" placeholder="Phone" required />
+        <p class="survey-form__error" data-error-for="phone" hidden>Phone is required</p>
+      </div>
+      <div class="survey-form__field">
+        <label for="email">Email *</label>
+        <input type="email" id="email" name="email" placeholder="Email" required />
+        <p class="survey-form__error" data-error-for="email" hidden>Email is required</p>
+      </div>
     </div>
-  </fieldset>
 
-  <div class="survey-form__field">
-    <label for="first_name">First name</label>
-    <input type="text" name="first_name" id="first_name" autocomplete="given-name" required />
-  </div>
-
-  <div class="survey-form__field">
-    <label for="email">Email</label>
-    <input type="email" name="email" id="email" autocomplete="email" required />
-  </div>
-
-  <div class="survey-form__field">
-    <label for="phone">Phone</label>
-    <input type="tel" name="phone" id="phone" autocomplete="tel" required />
-  </div>
-
-  <button type="submit" class="btn btn--primary survey-form__submit">Get My Recovery Plan</button>
-</form>
+    <div class="survey-form__nav">
+      <button type="button" class="survey-form__nav-btn" id="surveyBack" aria-label="Previous question" hidden>&larr;</button>
+      <span class="survey-form__step-label" id="surveyStepLabel">1 of {totalSteps}</span>
+      <button type="button" class="survey-form__nav-btn" id="surveyNext" aria-label="Next question">&rarr;</button>
+      <button type="submit" class="survey-form__submit-btn" id="surveySubmitBtn" hidden>SUBMIT</button>
+    </div>
+  </form>
+</div>
 
 <p class="survey-form__success" id="surveySuccess" role="status" hidden>
   Thanks — we've got your details and will be in touch shortly to get your recovery plan started.
 </p>
 
-<script>
-  const form = document.getElementById('patientSurveyForm') as HTMLFormElement | null;
+<script define:vars={{ totalSteps }}>
+  const wrapper = document.getElementById('patientSurveyForm');
+  const form = document.getElementById('surveyFormEl');
   const success = document.getElementById('surveySuccess');
+  const progressBar = document.getElementById('surveyProgressBar');
+  const stepLabel = document.getElementById('surveyStepLabel');
+  const backBtn = document.getElementById('surveyBack');
+  const nextBtn = document.getElementById('surveyNext');
+  const submitBtn = document.getElementById('surveySubmitBtn');
+  const stepEls = Array.from(form?.querySelectorAll('.survey-form__step') ?? []);
+
+  let current = 1;
+
+  function showStep(n) {
+    stepEls.forEach((el) => {
+      el.hidden = Number(el.dataset.step) !== n;
+    });
+    stepLabel.textContent = `${n} of ${totalSteps}`;
+    progressBar.style.width = `${(n / totalSteps) * 100}%`;
+    backBtn.hidden = n === 1;
+    const isLast = n === totalSteps;
+    nextBtn.hidden = isLast;
+    submitBtn.hidden = !isLast;
+  }
+
+  function setError(stepEl, key, show) {
+    const err = stepEl.querySelector(`[data-error-for="${key}"]`);
+    if (err) err.hidden = !show;
+  }
+
+  function validateStep(n) {
+    const stepEl = stepEls.find((el) => Number(el.dataset.step) === n);
+    if (!stepEl) return true;
+
+    const checkboxGroup = stepEl.querySelector('.survey-form__checkboxes');
+    if (checkboxGroup) {
+      const checked = checkboxGroup.querySelectorAll('input[type="checkbox"]:checked').length > 0;
+      setError(stepEl, n, !checked);
+      return checked;
+    }
+
+    // Final contact-details step
+    let valid = true;
+    ['full_name', 'phone', 'email'].forEach((key) => {
+      const input = stepEl.querySelector(`[name="${key}"]`);
+      const filled = !!input?.value.trim();
+      setError(stepEl, key, !filled);
+      if (!filled) valid = false;
+    });
+    return valid;
+  }
+
+  nextBtn?.addEventListener('click', () => {
+    if (!validateStep(current)) return;
+    current += 1;
+    showStep(current);
+  });
+
+  backBtn?.addEventListener('click', () => {
+    current -= 1;
+    showStep(current);
+  });
 
   // GHL's External Tracking script (added in the page <head>/<body>, see
   // physio-shailer-park.astro) listens for this form's native 'submit' event and
@@ -60,7 +179,10 @@ const struggles = [
   // own the on-page UX (swap to a thank-you message instead of a real navigation).
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
-    form.hidden = true;
+    if (!validateStep(current)) return;
+    wrapper.hidden = true;
     if (success) success.hidden = false;
   });
+
+  showStep(current);
 </script>
