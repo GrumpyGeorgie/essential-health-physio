@@ -90,10 +90,18 @@ export async function onRequestPost({ request, env }) {
     body: JSON.stringify(payload),
   });
 
+  const ghlResponseText = await ghlResponse.text();
+
   if (!ghlResponse.ok) {
-    const errorText = await ghlResponse.text();
-    console.error('GHL contact creation failed', ghlResponse.status, errorText);
+    console.error('GHL contact creation failed', ghlResponse.status, ghlResponseText);
     return Response.json({ ok: false, error: 'Failed to submit to GHL' }, { status: 502 });
+  }
+
+  // TEMPORARY: ?debug=1 echoes back GHL's raw response for verification during
+  // integration testing. Remove before considering this endpoint fully done.
+  const url = new URL(request.url);
+  if (url.searchParams.get('debug') === '1') {
+    return Response.json({ ok: true, sentPayload: payload, ghlResponse: JSON.parse(ghlResponseText) });
   }
 
   return Response.json({ ok: true });
