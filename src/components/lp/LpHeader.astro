@@ -1,4 +1,9 @@
 ---
+interface Props {
+  phoneDisplay: string;
+  phoneHref: string;
+}
+const { phoneDisplay, phoneHref } = Astro.props;
 ---
 <!-- Header — logo + phone + CTA only, no full nav (keeps paid traffic on one path) -->
 <header class="lp-header">
@@ -7,7 +12,7 @@
       <img src="/images/lp-logo.png" alt="Essential Health Physio" />
     </a>
     <div class="lp-header__actions">
-      <a href="tel:0731320898" class="lp-header__phone"><i class="fas fa-phone-alt"></i> (07) 3132 0898</a>
+      <a href={phoneHref} class="lp-header__phone"><i class="fas fa-phone-alt"></i> {phoneDisplay}</a>
       <a href="#book" class="btn btn--primary">Book Now</a>
     </div>
   </div>

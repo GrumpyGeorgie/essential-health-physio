@@ -1,4 +1,8 @@
 ---
+interface Props {
+  phoneDisplay: string;
+}
+const { phoneDisplay } = Astro.props;
 ---
 <section class="section booking-banner" data-reveal>
   <h2>Book Your First Visit</h2>
@@ -6,5 +10,5 @@
   <div class="btn-group">
     <a href="#book" class="btn btn--primary">Book Your First Visit</a>
   </div>
-  <div class="booking-banner__sub">Or Call (07) 3132 0898</div>
+  <div class="booking-banner__sub">Or Call {phoneDisplay}</div>
 </section>

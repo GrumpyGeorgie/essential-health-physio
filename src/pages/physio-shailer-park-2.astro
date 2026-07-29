@@ -15,14 +15,19 @@ import FinalCta from '../components/lp/FinalCta.astro';
 import LpFooter from '../components/lp/LpFooter.astro';
 import ScrollReveal from '../components/ScrollReveal.astro';
 
+// Distinct ad-creative variant of the Shailer Park LP (same clinic, different hook) —
+// kept its own headline/eyebrow and call-tracking number (used throughout this page,
+// not just the footer, matching the live variant). Everything else — FAQ wording,
+// CTA microcopy, services intro — standardised to the same unified template as
+// physio-shailer-park.astro rather than forking every line, since the live variant's
+// differences beyond the headline read as incidental copy drift, not a deliberate
+// distinct pitch. Easy to fork further if a fuller distinct copy pass is wanted.
 const clinic = {
-  eyebrow: 'Essential Health Physiotherapy Shailer Park',
-  headline: 'Regain confidence in living pain free to support your family life and hobbies',
-  phoneDisplay: '(07) 3132 0898',
-  phoneHref: 'tel:0731320898',
+  eyebrow: 'Essential Health Physiotherapy',
+  headline: 'Regain confidence in living pain-free to enjoy your active family life.',
+  phoneDisplay: '(07) 3102 1837',
+  phoneHref: 'tel:0731021837',
   reviewsUrl: 'https://www.google.com/search?q=Essential+Health+Physiotherapy+Shailer+Park',
-  // Footer/sticky-bar use a separate call-tracking number for this specific
-  // campaign — different from the main clinic line used everywhere else on the page.
   stickyPhoneDisplay: '(07) 3102 1837',
   stickyPhoneHref: 'tel:0731021837',
 };
@@ -51,7 +56,7 @@ const faqItems = [
 ];
 ---
 
-<BaseLayout title="Physio Shailer Park — Essential Health Physio" description="Regain confidence in living pain free. Physiotherapy, exercise physiology, remedial massage, women's health physio, dietetics and hydrotherapy — all in one Shailer Park clinic.">
+<BaseLayout title="Physio Shailer Park — Essential Health Physio" description="Regain confidence in living pain-free to enjoy your active family life. Physiotherapy, exercise physiology, remedial massage, women's health physio, dietetics and hydrotherapy — all in one Shailer Park clinic.">
   <LpHeader phoneDisplay={clinic.phoneDisplay} phoneHref={clinic.phoneHref} />
   <LpHero eyebrow={clinic.eyebrow} headline={clinic.headline} phoneDisplay={clinic.phoneDisplay} phoneHref={clinic.phoneHref} reviewsUrl={clinic.reviewsUrl} />
   <BookingBanner phoneDisplay={clinic.phoneDisplay} />
@@ -69,9 +74,8 @@ const faqItems = [
 
   <!--
     TODO before this page goes live: replace with the real GHL External Tracking
-    script (GHL portal → Settings → External Tracking → Copy Script). Without it,
-    the native patient survey form above submits but nothing captures the lead —
-    it would fail silently, so do not deploy without swapping this in.
+    script (GHL portal → Settings → External Tracking → Copy Script). Same gap as
+    physio-shailer-park.astro — see that file's note.
   -->
   <!-- <script src="https://REPLACE-WITH-YOUR-GHL-SUBDOMAIN/js/external-tracking.js" data-tracking-id="REPLACE-WITH-TRACKING-ID"></script> -->
 </BaseLayout>

@@ -16,15 +16,15 @@ import LpFooter from '../components/lp/LpFooter.astro';
 import ScrollReveal from '../components/ScrollReveal.astro';
 
 const clinic = {
-  eyebrow: 'Essential Health Physiotherapy Shailer Park',
+  eyebrow: 'Essential Health Physiotherapy BIRKDALE',
   headline: 'Regain confidence in living pain free to support your family life and hobbies',
-  phoneDisplay: '(07) 3132 0898',
-  phoneHref: 'tel:0731320898',
-  reviewsUrl: 'https://www.google.com/search?q=Essential+Health+Physiotherapy+Shailer+Park',
-  // Footer/sticky-bar use a separate call-tracking number for this specific
-  // campaign — different from the main clinic line used everywhere else on the page.
-  stickyPhoneDisplay: '(07) 3102 1837',
-  stickyPhoneHref: 'tel:0731021837',
+  phoneDisplay: '(07) 3822 8879',
+  phoneHref: 'tel:0738228879',
+  reviewsUrl: 'https://www.google.com/search?q=Essential+Health+Physiotherapy+Birkdale',
+  // No separate call-tracking number documented for Birkdale (unlike Shailer Park) —
+  // footer/sticky-bar use the same clinic line as the rest of the page.
+  stickyPhoneDisplay: '(07) 3822 8879',
+  stickyPhoneHref: 'tel:0738228879',
 };
 
 const howWeWorkSteps = [
@@ -38,7 +38,7 @@ const faqItems = [
   { q: 'What happens at the first appointment?', a: "Your initial session is a full 1-hour assessment. We'll listen to your history, assess your movement, identify what's driving the problem, and talk through a structured treatment plan. Most patients get hands-on treatment in that first session too." },
   { q: 'Do you accept WorkCover, DVA, and NDIS?', a: "Yes, all three. We handle the documentation and reporting. If you're on a WorkCover or CTP claim, we'll work with your insurer and employer to keep your recovery on track." },
   { q: 'What makes your clinic different from other physios in the area?', a: 'Two things. First, every new patient gets a full 1-hour assessment instead of the standard 30 minutes. Second, we have physio, exercise physiology, remedial massage, women\'s health physiotherapy, dietetics, lymphoedema therapy, and hydrotherapy all in one building. If your recovery needs more than physio alone, we walk you down the hall instead of referring you across town.' },
-  { q: 'Is there parking at the clinic?', a: 'Yes. The Shailer Park clinic has on-site parking on Bulwarna Street.' },
+  { q: 'Is there parking at the clinic?', a: 'Yes. Our Birkdale clinic has on-site parking available at Shop 20a/120 Birkdale Rd.' },
   { q: 'What conditions can physiotherapy help with?', a: 'Physiotherapy can assist with many different conditions such as headache, back and spinal pain, and shoulder pain. Our physiotherapists are well trained in helping individuals get their pain better controlled. Physiotherapy can also help with dizziness, imbalance, weakness, and many other physical conditions. If you\'re not sure, you can book a complimentary 15-minute consultation with our Director therapist to discuss more.' },
   { q: 'How many physiotherapy sessions will I need?', a: 'The number of sessions depends on the condition, duration, and severity of someone\'s presentation. Most people require between 6 and 12 sessions for better relief and a long-lasting result. Your sessions are structured to progress toward self-management and create long-term, impactful changes in your physical health.' },
   { q: 'Can physiotherapy help with chronic pain?', a: 'Absolutely — physiotherapists are experts in the field of chronic pain management. Physiotherapy is very well equipped with the latest technology and treatment techniques, and the ability to prescribe an individualised exercise program to help you better manage chronic pain.' },
@@ -51,7 +51,7 @@ const faqItems = [
 ];
 ---
 
-<BaseLayout title="Physio Shailer Park — Essential Health Physio" description="Regain confidence in living pain free. Physiotherapy, exercise physiology, remedial massage, women's health physio, dietetics and hydrotherapy — all in one Shailer Park clinic.">
+<BaseLayout title="Physio Birkdale — Essential Health Physio" description="Regain confidence in living pain free. Physiotherapy, exercise physiology, remedial massage, women's health physio, dietetics and hydrotherapy — all in one Birkdale clinic.">
   <LpHeader phoneDisplay={clinic.phoneDisplay} phoneHref={clinic.phoneHref} />
   <LpHero eyebrow={clinic.eyebrow} headline={clinic.headline} phoneDisplay={clinic.phoneDisplay} phoneHref={clinic.phoneHref} reviewsUrl={clinic.reviewsUrl} />
   <BookingBanner phoneDisplay={clinic.phoneDisplay} />
@@ -69,9 +69,8 @@ const faqItems = [
 
   <!--
     TODO before this page goes live: replace with the real GHL External Tracking
-    script (GHL portal → Settings → External Tracking → Copy Script). Without it,
-    the native patient survey form above submits but nothing captures the lead —
-    it would fail silently, so do not deploy without swapping this in.
+    script (GHL portal → Settings → External Tracking → Copy Script). Same gap as
+    physio-shailer-park.astro — see that file's note.
   -->
   <!-- <script src="https://REPLACE-WITH-YOUR-GHL-SUBDOMAIN/js/external-tracking.js" data-tracking-id="REPLACE-WITH-TRACKING-ID"></script> -->
 </BaseLayout>

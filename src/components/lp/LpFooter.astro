@@ -1,10 +1,18 @@
 ---
+interface Props {
+  phoneDisplay: string;
+  phoneHref: string;
+}
+const { phoneDisplay, phoneHref } = Astro.props;
+
 const locations = [
   {
     name: 'Birkdale',
     address: 'Shop 20a, 120 Birkdale Rd, Birkdale QLD 4159',
-    phoneDisplay: '(07) 3132 0898',
-    phoneHref: 'tel:0731320898',
+    // Real Birkdale clinic line — was previously (wrongly) showing the Shailer Park
+    // number here. Fixed.
+    phoneDisplay: '(07) 3822 8879',
+    phoneHref: 'tel:0738228879',
     mapsQuery: 'Shop+20a%2C+120+Birkdale+Rd%2C+Birkdale+QLD+4159',
     embedQuery: 'Shop%2020a%2C%20120%20Birkdale%20Rd%2C%20Birkdale%20QLD%204159',
     hours: [['Mon–Fri', '7am–7pm'], ['Sat', '7am–12pm'], ['Sun', 'Closed']],
@@ -48,5 +56,5 @@ const locations = [
 <!-- Sticky mobile CTA bar — always-visible booking path, common LP conversion pattern -->
 <div class="sticky-cta-bar">
   <a href="#book" class="btn btn--primary">Book Assessment</a>
-  <a href="tel:0731320898" class="btn btn--outline-dark"><i class="fas fa-phone-alt"></i> Call Now</a>
+  <a href={phoneHref} class="btn btn--outline-dark"><i class="fas fa-phone-alt"></i> Call Now</a>
 </div>
