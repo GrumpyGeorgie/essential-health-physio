@@ -5,7 +5,7 @@
 const GHL_LOCATION_ID = '5RSV9kpgbRBqjKQfOVjq';
 const GHL_API_VERSION = '2021-07-28';
 
-export async function onRequestGet({ env }) {
+export async function onRequestGet({ env, request }) {
   if (!env.GHL_API_KEY) {
     return Response.json({ ok: false, error: 'GHL_API_KEY not set' }, { status: 500 });
   }
@@ -29,7 +29,15 @@ export async function onRequestGet({ env }) {
     return Response.json({ ok: false, error: 'Non-JSON response', body: text }, { status: 502 });
   }
 
-  const fields = (data.customFields || data.fields || []).map((f) => ({
+  const raw = data.customFields || data.fields || [];
+  const url = new URL(request.url);
+  const idsParam = url.searchParams.get('ids');
+  if (idsParam) {
+    const ids = idsParam.split(',');
+    return Response.json({ ok: true, fields: raw.filter((f) => ids.includes(f.id)) });
+  }
+
+  const fields = raw.map((f) => ({
     id: f.id,
     name: f.name,
     fieldKey: f.fieldKey,
