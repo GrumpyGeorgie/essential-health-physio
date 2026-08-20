@@ -1,35 +1,30 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import LpHeader from '../components/lp/LpHeader.astro';
-import LpHero from '../components/lp/LpHero.astro';
-import BookingBanner from '../components/lp/BookingBanner.astro';
-import TreatSection from '../components/lp/TreatSection.astro';
-import CtaBand from '../components/lp/CtaBand.astro';
-import StepsSection from '../components/StepsSection.astro';
-import LpServices from '../components/lp/LpServices.astro';
-import ApproachSection from '../components/lp/ApproachSection.astro';
-import CallCta from '../components/lp/CallCta.astro';
-import FAQSection from '../components/FAQSection.astro';
-import InstagramCta from '../components/lp/InstagramCta.astro';
-import FinalCta from '../components/lp/FinalCta.astro';
-import LpFooter from '../components/lp/LpFooter.astro';
-import ScrollReveal from '../components/ScrollReveal.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LpHeader from '../../components/lp/LpHeader.astro';
+import LpHero from '../../components/lp/LpHero.astro';
+import BookingBanner from '../../components/lp/BookingBanner.astro';
+import TreatSection from '../../components/lp/TreatSection.astro';
+import CtaBand from '../../components/lp/CtaBand.astro';
+import StepsSection from '../../components/StepsSection.astro';
+import LpServices from '../../components/lp/LpServices.astro';
+import ApproachSection from '../../components/lp/ApproachSection.astro';
+import CallCta from '../../components/lp/CallCta.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import InstagramCta from '../../components/lp/InstagramCta.astro';
+import FinalCta from '../../components/lp/FinalCta.astro';
+import LpFooter from '../../components/lp/LpFooter.astro';
+import ScrollReveal from '../../components/ScrollReveal.astro';
 
-// Distinct ad-creative variant of the Shailer Park LP (same clinic, different hook) —
-// kept its own headline/eyebrow and call-tracking number (used throughout this page,
-// not just the footer, matching the live variant). Everything else — FAQ wording,
-// CTA microcopy, services intro — standardised to the same unified template as
-// physio-shailer-park.astro rather than forking every line, since the live variant's
-// differences beyond the headline read as incidental copy drift, not a deliberate
-// distinct pitch. Easy to fork further if a fuller distinct copy pass is wanted.
 const clinic = {
-  eyebrow: 'Essential Health Physiotherapy',
-  headline: 'Regain confidence in living pain-free to enjoy your active family life.',
-  phoneDisplay: '(07) 3102 1837',
-  phoneHref: 'tel:0731021837',
-  reviewsUrl: 'https://www.google.com/search?q=Essential+Health+Physiotherapy+Shailer+Park',
-  stickyPhoneDisplay: '(07) 3102 1837',
-  stickyPhoneHref: 'tel:0731021837',
+  eyebrow: 'Essential Health Physiotherapy BIRKDALE',
+  headline: 'Regain confidence in living pain free to support your family life and hobbies',
+  phoneDisplay: '(07) 3822 8879',
+  phoneHref: 'tel:0738228879',
+  reviewsUrl: 'https://www.google.com/search?q=Essential+Health+Physiotherapy+Birkdale',
+  // No separate call-tracking number documented for Birkdale (unlike Shailer Park) —
+  // footer/sticky-bar use the same clinic line as the rest of the page.
+  stickyPhoneDisplay: '(07) 3822 8879',
+  stickyPhoneHref: 'tel:0738228879',
 };
 
 const howWeWorkSteps = [
@@ -43,7 +38,7 @@ const faqItems = [
   { q: 'What happens at the first appointment?', a: "Your initial session is a full 1-hour assessment. We'll listen to your history, assess your movement, identify what's driving the problem, and talk through a structured treatment plan. Most patients get hands-on treatment in that first session too." },
   { q: 'Do you accept WorkCover, DVA, and NDIS?', a: "Yes, all three. We handle the documentation and reporting. If you're on a WorkCover or CTP claim, we'll work with your insurer and employer to keep your recovery on track." },
   { q: 'What makes your clinic different from other physios in the area?', a: 'Two things. First, every new patient gets a full 1-hour assessment instead of the standard 30 minutes. Second, we have physio, exercise physiology, remedial massage, women\'s health physiotherapy, dietetics, lymphoedema therapy, and hydrotherapy all in one building. If your recovery needs more than physio alone, we walk you down the hall instead of referring you across town.' },
-  { q: 'Is there parking at the clinic?', a: 'Yes. The Shailer Park clinic has on-site parking on Bulwarna Street.' },
+  { q: 'Is there parking at the clinic?', a: 'Yes. Our Birkdale clinic has on-site parking available at Shop 20a/120 Birkdale Rd.' },
   { q: 'What conditions can physiotherapy help with?', a: 'Physiotherapy can assist with many different conditions such as headache, back and spinal pain, and shoulder pain. Our physiotherapists are well trained in helping individuals get their pain better controlled. Physiotherapy can also help with dizziness, imbalance, weakness, and many other physical conditions. If you\'re not sure, you can book a complimentary 15-minute consultation with our Director therapist to discuss more.' },
   { q: 'How many physiotherapy sessions will I need?', a: 'The number of sessions depends on the condition, duration, and severity of someone\'s presentation. Most people require between 6 and 12 sessions for better relief and a long-lasting result. Your sessions are structured to progress toward self-management and create long-term, impactful changes in your physical health.' },
   { q: 'Can physiotherapy help with chronic pain?', a: 'Absolutely — physiotherapists are experts in the field of chronic pain management. Physiotherapy is very well equipped with the latest technology and treatment techniques, and the ability to prescribe an individualised exercise program to help you better manage chronic pain.' },
@@ -56,7 +51,7 @@ const faqItems = [
 ];
 ---
 
-<BaseLayout title="Physio Shailer Park — Essential Health Physio" description="Regain confidence in living pain-free to enjoy your active family life. Physiotherapy, exercise physiology, remedial massage, women's health physio, dietetics and hydrotherapy — all in one Shailer Park clinic.">
+<BaseLayout noindex title="Physio Birkdale — Essential Health Physio" description="Regain confidence in living pain free. Physiotherapy, exercise physiology, remedial massage, women's health physio, dietetics and hydrotherapy — all in one Birkdale clinic.">
   <LpHeader phoneDisplay={clinic.phoneDisplay} phoneHref={clinic.phoneHref} />
   <LpHero eyebrow={clinic.eyebrow} headline={clinic.headline} phoneDisplay={clinic.phoneDisplay} phoneHref={clinic.phoneHref} reviewsUrl={clinic.reviewsUrl} />
   <BookingBanner phoneDisplay={clinic.phoneDisplay} />
@@ -66,7 +61,7 @@ const faqItems = [
   <LpServices phoneDisplay={clinic.phoneDisplay} phoneHref={clinic.phoneHref} />
   <ApproachSection />
   <CallCta phoneDisplay={clinic.phoneDisplay} phoneHref={clinic.phoneHref} />
-  <FAQSection heading="Common Questions" items={faqItems} />
+  <FAQSection heading="Common Questions" items={faqItems} centeredHeading />
   <InstagramCta />
   <FinalCta phoneDisplay={clinic.phoneDisplay} phoneHref={clinic.phoneHref} />
   <LpFooter phoneDisplay={clinic.stickyPhoneDisplay} phoneHref={clinic.stickyPhoneHref} />

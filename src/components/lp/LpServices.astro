@@ -16,8 +16,11 @@ const services = [
 ---
 
 <section class="section services-section" data-reveal>
-  <h2>One Clinic. Everything You <span class="accent-word">Need</span>.</h2>
-  <p>One stop destination for Physiotherapy, Exercise Physiology, Remedial Massage, Women's Health Physiotherapy, Dietetics, Lymphoedema Therapy &amp; Hydrotherapy.</p>
+  <div class="services-section__intro">
+    <span class="eyebrow">Complete coordinated care</span>
+    <h2>One Clinic. Everything You <span class="accent-word">Need</span>.</h2>
+    <p>One stop destination for Physiotherapy, Exercise Physiology, Remedial Massage, Women's Health Physiotherapy, Dietetics, Lymphoedema Therapy &amp; Hydrotherapy.</p>
+  </div>
   <div class="services-grid" data-reveal-group>
     {services.map((s) => (
       <div class="service-card">
@@ -35,3 +38,64 @@ const services = [
     </div>
   </div>
 </section>
+
+<style>
+  .services-section {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 92% 8%, rgba(192, 228, 120, 0.2), transparent 22rem),
+      linear-gradient(180deg, #f8fbff 0%, #eef9f7 100%);
+  }
+
+  .services-section::before {
+    content: '';
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    left: -110px;
+    bottom: 10%;
+    border: 32px solid rgba(84, 192, 228, 0.1);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .services-section > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .services-section__intro {
+    max-width: 760px;
+    margin: 0 auto var(--space-xl);
+    text-align: center;
+  }
+
+  .services-section__intro .eyebrow {
+    margin-bottom: 0.75rem;
+    color: var(--accent-teal);
+  }
+
+  .services-section__intro h2 {
+    margin-bottom: var(--space-s);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  .services-section__intro p {
+    max-width: 68ch;
+    margin: 0 auto;
+    color: #536474;
+    font-size: var(--text-large);
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+
+  .services-section :global(.service-card) {
+    border: 1px solid rgba(0, 91, 176, 0.08);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 10px 30px rgba(0, 50, 100, 0.06);
+  }
+</style>

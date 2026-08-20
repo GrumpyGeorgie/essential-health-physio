@@ -59,7 +59,9 @@ const totalSteps = steps.length + 1;
 
 <div class="survey-form" id="patientSurveyForm">
   <div class="survey-form__progress"><div class="survey-form__progress-bar" id="surveyProgressBar"></div></div>
-  <h3 class="survey-form__title">Fill Out The Survey Below To Help You Get Your Personalised Recovery Journey Started</h3>
+  <span class="survey-form__eyebrow">Your personalised recovery plan</span>
+  <h3 class="survey-form__title">Tell us what’s getting in your way</h3>
+  <p class="survey-form__intro">Answer six quick questions so our team can understand how best to help.</p>
 
   <form id="surveyFormEl" novalidate>
     {steps.map((step, i) => (
@@ -98,10 +100,10 @@ const totalSteps = steps.length + 1;
     </div>
 
     <div class="survey-form__nav">
-      <button type="button" class="survey-form__nav-btn" id="surveyBack" aria-label="Previous question" hidden>&larr;</button>
+      <button type="button" class="survey-form__nav-btn" id="surveyBack" aria-label="Previous question" hidden><i class="fas fa-arrow-left" aria-hidden="true"></i></button>
       <span class="survey-form__step-label" id="surveyStepLabel">1 of {totalSteps}</span>
-      <button type="button" class="survey-form__nav-btn" id="surveyNext" aria-label="Next question">&rarr;</button>
-      <button type="submit" class="survey-form__submit-btn" id="surveySubmitBtn" hidden>SUBMIT</button>
+      <button type="button" class="survey-form__nav-btn" id="surveyNext" aria-label="Next question"><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+      <button type="submit" class="survey-form__submit-btn" id="surveySubmitBtn" hidden>Send My Details</button>
     </div>
     <p class="survey-form__error" id="surveySubmitError" hidden>Something went wrong submitting your details — please call us instead, or try again.</p>
   </form>
@@ -211,7 +213,7 @@ const totalSteps = steps.length + 1;
     } catch {
       submitError.hidden = false;
       submitBtn.disabled = false;
-      submitBtn.textContent = 'SUBMIT';
+      submitBtn.textContent = 'Send My Details';
     }
   });
 

@@ -6,14 +6,15 @@ interface Props {
   intro?: string;
   items: QA[];
   fundingBadges?: boolean;
+  centeredHeading?: boolean;
 }
 
-const { heading, intro, items, fundingBadges = false } = Astro.props;
+const { heading, intro, items, fundingBadges = false, centeredHeading = false } = Astro.props;
 ---
 
 <section class="section faq-band" data-reveal>
-  <div class="faq-section">
-    <div>
+  <div class:list={['faq-section', { 'faq-section--centered': centeredHeading }]}>
+    <div class="faq-section__heading">
       <h2>{heading}</h2>
       {intro && <p>{intro}</p>}
     </div>
@@ -34,3 +35,18 @@ const { heading, intro, items, fundingBadges = false } = Astro.props;
     </div>
   )}
 </section>
+
+<style>
+  .faq-section--centered {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 980px;
+  }
+
+  .faq-section--centered .faq-section__heading {
+    text-align: center;
+  }
+
+  .faq-section--centered .faq-section__heading h2 {
+    margin-bottom: var(--space-l);
+  }
+</style>

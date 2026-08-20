@@ -8,12 +8,12 @@ const { phoneDisplay, phoneHref } = Astro.props;
 <!-- Header — logo + phone + CTA only, no full nav (keeps paid traffic on one path) -->
 <header class="lp-header">
   <div class="lp-header__inner">
-    <a href="#" class="lp-header__logo">
+    <a href="/" class="lp-header__logo" aria-label="Essential Health Physio home">
       <img src="/images/lp-logo.png" alt="Essential Health Physio" />
     </a>
     <div class="lp-header__actions">
       <a href={phoneHref} class="lp-header__phone"><i class="fas fa-phone-alt"></i> {phoneDisplay}</a>
-      <a href="#book" class="btn btn--primary">Book Now</a>
+      <a href="#book" class="btn btn--primary">Start Here</a>
     </div>
   </div>
 </header>

@@ -18,6 +18,7 @@ const { eyebrow, headline, phoneDisplay, phoneHref, reviewsUrl } = Astro.props;
     <div class="lp-hero__content">
       <span class="eyebrow">{eyebrow}</span>
       <h1>{headline}</h1>
+      <p class="lp-hero__intro">A clear diagnosis, hands-on treatment and a practical recovery plan—starting with a thorough one-hour initial appointment.</p>
       <ul class="lp-hero__list">
         <li><i class="fas fa-check-circle"></i> Trusted by Local GPs</li>
         <li><i class="fas fa-check-circle"></i> Combined 70 years of clinical experience</li>
@@ -25,27 +26,72 @@ const { eyebrow, headline, phoneDisplay, phoneHref, reviewsUrl } = Astro.props;
         <li><i class="fas fa-check-circle"></i> Structured plan to recovery for lasting results</li>
         <li><i class="fas fa-check-circle"></i> Same-day appointments available</li>
       </ul>
-      <p class="lp-hero__services-note">One stop destination for Physiotherapy, Exercise Physiology, Remedial Massage, Women's Health Physiotherapy, Dietetics, Lymphoedema Therapy &amp; Hydrotherapy.</p>
       <div class="lp-hero__trust">
-        <span class="lp-hero__trust-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        <strong>325 five-star reviews</strong>
-        <a href={reviewsUrl} target="_blank" rel="noopener">Read our Google reviews &rarr;</a>
+        <div class="lp-hero__rating">
+          <span class="lp-hero__trust-stars" aria-label="Five out of five stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <strong>325 five-star reviews</strong>
+        </div>
+        <a href={reviewsUrl} target="_blank" rel="noopener">Read our Google reviews <span aria-hidden="true">&rarr;</span></a>
       </div>
-      <div class="btn-group" style="justify-content:flex-start;">
+      <div class="lp-hero__actions">
         <a href="#book" id="book" class="btn btn--primary">Book Your Appointment</a>
         <a href={phoneHref} class="btn btn--outline"><i class="fas fa-phone-alt"></i> Call {phoneDisplay}</a>
       </div>
+      <p class="lp-hero__services-note"><strong>Complete care under one roof:</strong> Physiotherapy, Exercise Physiology, Remedial Massage, Women's Health Physiotherapy, Dietetics, Lymphoedema Therapy and Hydrotherapy.</p>
     </div>
 
     <div class="lp-hero__side">
-      <div class="lp-hero__video">
-        <video controls preload="metadata" poster="/images/lp-team-indoor.jpg">
-          <source src="https://assets.cdn.filesafe.space/5RSV9kpgbRBqjKQfOVjq/media/6a15abaf79d918ba609feb8b.mp4" type="video/mp4" />
-        </video>
-      </div>
       <div class="lp-hero__survey">
         <PatientSurveyForm />
       </div>
     </div>
   </div>
 </section>
+
+<section class="lp-video-strip" aria-label="Meet the Essential Health Physio team">
+  <span class="lp-video-strip__orb lp-video-strip__orb--one" aria-hidden="true"></span>
+  <span class="lp-video-strip__orb lp-video-strip__orb--two" aria-hidden="true"></span>
+  <span class="lp-video-strip__orb lp-video-strip__orb--three" aria-hidden="true"></span>
+  <div class="lp-hero__video-card">
+    <div class="lp-hero__video-copy">
+      <span>Meet the team</span>
+      <h2>Real people.<br />One connected care team.</h2>
+      <p>Get to know the clinicians focused on helping you move with confidence again.</p>
+      <ul aria-label="Why patients choose Essential Health Physio">
+        <li><strong>70+</strong><span>years of combined clinical experience</span></li>
+        <li><strong>3</strong><span>convenient Brisbane clinic locations</span></li>
+      </ul>
+      <div class="lp-hero__watch-prompt"><i class="fas fa-play" aria-hidden="true"></i> Press play to meet us</div>
+    </div>
+    <div class="lp-hero__video-wrap">
+      <span class="lp-hero__video-tag">1 min 35 sec</span>
+      <div class="lp-hero__video">
+        <video controls playsinline preload="metadata" poster="/images/lp-team-indoor.jpg">
+          <source src="https://assets.cdn.filesafe.space/5RSV9kpgbRBqjKQfOVjq/media/6a15abaf79d918ba609feb8b.mp4" type="video/mp4" />
+        </video>
+        <button type="button" class="lp-hero__video-play" aria-label="Play the Meet the Essential Health Physio team video">
+          <i class="fas fa-play" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.lp-hero__video').forEach((player) => {
+    const video = player.querySelector<HTMLVideoElement>('video');
+    const playButton = player.querySelector<HTMLButtonElement>('.lp-hero__video-play');
+    if (!video || !playButton) return;
+
+    playButton.addEventListener('click', async () => {
+      try {
+        await video.play();
+      } catch {
+        playButton.hidden = false;
+      }
+    });
+
+    video.addEventListener('play', () => { playButton.hidden = true; });
+    video.addEventListener('ended', () => { playButton.hidden = false; });
+  });
+</script>
